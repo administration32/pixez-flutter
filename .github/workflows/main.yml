@@ -1,0 +1,28 @@
+姓名:构建IOS
+在……之上:
+workflow_dispatch:{}
+工作:
+build_IOS:
+run-on:macos-最新
+步骤:
+-uses:操作/签出@v3
+-姓名:设置颤振
+uses:subosito/颤振作用@v2
+和……一起:
+渠道:'稳定'
+-跑:颤振--版本
+-跑:flutter酒吧
+-跑:flutter包pub run build_runner build--delete-conflicting-outputs
+-跑:flutter构建ios-release-no-codesign
+-姓名:创建Payload目录并移动Runner.app
+跑:|
+mkdir-p构建/ios/iPhoneOS/有效负载
+MV构建/ios/iPhoneOS/Runner.app构建/ios/iPhoneOS/有效负载
+-姓名:更改目录并压缩Payload以创建pixez-ios.ipa
+跑:|
+CD build/ios/iPhoneOS/
+zip-r pixez-ios.ipa有效载荷
+-uses:操作/上载工件@v3
+和……一起:
+姓名:pixez-ios.ipa
+路径:build/ios/iPhoneOS/pixez-ios.ipa
